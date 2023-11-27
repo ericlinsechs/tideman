@@ -202,6 +202,24 @@ void lock_pairs(void)
 // Print the winner of the election
 void print_winner(void)
 {
-    // TODO
+    /* The final winner */
+    int final_w = -1;
+
+    for (int i = 0; i < candidate_count; i++) {
+        for (int j = 0; j < candidate_count; j++) {
+            if (locked[i][j]) {
+                if (final_w == -1)
+                    final_w = i;
+                else {
+                    /* Replace with the new winner */
+                    if (j == final_w)
+                        final_w = i;
+                }
+            }
+        }
+    }
+
+    printf("%s\n", candidates[final_w]);
+
     return;
 }
