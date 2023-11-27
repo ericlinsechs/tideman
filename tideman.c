@@ -163,7 +163,37 @@ void sort_pairs(void)
 // Lock pairs into the candidate graph in order, without creating cycles
 void lock_pairs(void)
 {
-    // TODO
+    int cycle_list[candidate_count];
+    int cw_cnt = 0;
+    int tmp_loser = -1;
+
+    for (int i = 0; i < pair_count; i++) {
+        int winner = pairs[i].winner;
+        int loser = pairs[i].loser;
+
+        // Iterate list to compare with the current loser
+        bool w_flag = false, l_flag = false;
+        for (int i = 0; i < cw_cnt; i++) {
+            if (cycle_list[i] == winner)
+                w_flag = true;
+            if (cycle_list[i] == loser)
+                l_flag = true;
+            if (w_flag && l_flag)
+                goto lock_pairs_continue;  // Detect cycle
+        }
+
+        if (tmp_loser == winner) {
+            // Add both winner and loser to the list
+            if (i == 1)
+                cycle_list[cw_cnt++] = winner;
+            cycle_list[cw_cnt++] = loser;
+        }
+
+        locked[winner][loser] = true;
+
+    lock_pairs_continue:
+        tmp_loser = loser;
+    }
     return;
 }
 
