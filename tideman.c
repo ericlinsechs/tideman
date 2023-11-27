@@ -184,8 +184,10 @@ void lock_pairs(void)
 
         if (tmp_loser == winner) {
             // Add both winner and loser to the list
-            if (i == 1)
+            if (!cw_cnt) {
+                cycle_list[cw_cnt++] = pairs[i - 1].winner;
                 cycle_list[cw_cnt++] = winner;
+            }
             cycle_list[cw_cnt++] = loser;
         }
 
