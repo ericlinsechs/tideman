@@ -173,10 +173,10 @@ void lock_pairs(void)
 
         // Iterate list to compare with the current loser
         bool w_flag = false, l_flag = false;
-        for (int i = 0; i < cw_cnt; i++) {
-            if (cycle_list[i] == winner)
+        for (int j = 0; j < cw_cnt; j++) {
+            if (cycle_list[j] == winner)
                 w_flag = true;
-            if (cycle_list[i] == loser)
+            if (cycle_list[j] == loser)
                 l_flag = true;
             if (w_flag && l_flag)
                 goto lock_pairs_continue;  // Detect cycle
